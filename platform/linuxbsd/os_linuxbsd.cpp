@@ -51,6 +51,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include <filesystem>
+
 void OS_LinuxBSD::alert(const String &p_alert, const String &p_title) {
 	const char *message_programs[] = { "zenity", "kdialog", "Xdialog", "xmessage" };
 
@@ -463,7 +465,7 @@ Error OS_LinuxBSD::move_to_trash(const String &p_path) {
 	// The trash can is successfully created, now we check that we don't exceed our file name length limit.
 	// If the file name is too long trim it so we can add the identifying number and ".trashinfo".
 	// Assumes that the file name length limit is 255 characters.
-	String file_name = basename(p_path.utf8().get_data());
+	String file_name = std::filesystem::path(p_path.utf8().get_data()).filename().string().c_str();
 	if (file_name.length() > 240) {
 		file_name = file_name.substr(0, file_name.length() - 15);
 	}

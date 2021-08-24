@@ -430,11 +430,11 @@ def configure(env):
         env.Append(LINKFLAGS=["-m64", "-L/usr/lib/i686-linux-gnu"])
 
     # Link those statically for portability
-    if env["use_static_cpp"]:
+    if env["use_static_cpp"] and not sys.platform.startswith('freebsd'):
         env.Append(LINKFLAGS=["-static-libgcc", "-static-libstdc++"])
         if env["use_llvm"]:
             env["LINKCOM"] = env["LINKCOM"] + " -l:libatomic.a"
 
     else:
-        if env["use_llvm"]:
+        if env["use_llvm"] and not sys.platform.startswith('freebsd'):
             env.Append(LIBS=["atomic"])

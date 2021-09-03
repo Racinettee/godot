@@ -386,6 +386,7 @@ static String get_mountpoint(const String &p_path) {
 }
 
 Error OS_LinuxBSD::move_to_trash(const String &p_path) {
+	puts("Hello trash");
 	int err_code;
 	List<String> args;
 	args.push_back(p_path);
@@ -465,7 +466,7 @@ Error OS_LinuxBSD::move_to_trash(const String &p_path) {
 	// The trash can is successfully created, now we check that we don't exceed our file name length limit.
 	// If the file name is too long trim it so we can add the identifying number and ".trashinfo".
 	// Assumes that the file name length limit is 255 characters.
-	String file_name = std::filesystem::path(p_path.utf8().get_data()).filename().string().c_str();
+	String file_name = p_path.get_basename();
 	if (file_name.length() > 240) {
 		file_name = file_name.substr(0, file_name.length() - 15);
 	}

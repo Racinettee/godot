@@ -51,8 +51,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include <filesystem>
-
 void OS_LinuxBSD::alert(const String &p_alert, const String &p_title) {
 	const char *message_programs[] = { "zenity", "kdialog", "Xdialog", "xmessage" };
 

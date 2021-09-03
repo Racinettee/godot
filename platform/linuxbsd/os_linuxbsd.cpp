@@ -384,7 +384,6 @@ static String get_mountpoint(const String &p_path) {
 }
 
 Error OS_LinuxBSD::move_to_trash(const String &p_path) {
-	puts("Hello trash");
 	int err_code;
 	List<String> args;
 	args.push_back(p_path);
